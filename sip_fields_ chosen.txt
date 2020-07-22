@@ -1,0 +1,21 @@
+Method
+Request-URI User Part
+Request-URI Host Part
+Resent Packet
+SIP from address User Part
+SIP from address Host Part
+SIP to address User Part
+SIP to address Host Part
+Privacy
+Allow
+P-Early-Media
+Supported
+Content-Type
+Session Attribute (a)
+MIME Type
+Sample Rate
+Media format specific parameters
+Media Attribute Value
+Reason
+Status-Code
+Require

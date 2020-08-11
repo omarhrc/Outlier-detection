@@ -2,8 +2,6 @@ Method
 Request-URI User Part
 Request-URI Host Part
 Resent Packet
-SIP from address User Part
-SIP from address Host Part
 SIP to address User Part
 SIP to address Host Part
 Privacy

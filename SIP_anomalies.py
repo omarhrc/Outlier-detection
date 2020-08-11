@@ -20,7 +20,7 @@ from pyod.models.mo_gaal import MO_GAAL
 # Input file
 #
 ########################################################################################################
-IN_PATH = r'/home/omarhrc/Documents/AI/Python scripts/Anomaly Detection'
+IN_PATH = r'C:\Traces\_Anomaly Detection'
 IN_FILE = 'sip_vectors.csv'
 
 ########################################################################################################
@@ -28,7 +28,7 @@ IN_FILE = 'sip_vectors.csv'
 # Output file
 #
 ########################################################################################################
-OUT_PATH = r'/home/omarhrc/Documents/AI/Python scripts/Anomaly Detection'
+OUT_PATH = r'C:\Traces\_Anomaly Detection'
 OUT_FILE = 'outliers.xls'
 
 ########################################################################################################
@@ -72,4 +72,12 @@ df_all['scores'] = clf.decision_scores_
 df_all['labels'] = clf.labels_
 df_out = df_all.where(df_all['labels'] == 1).dropna()
 df_out = df_out.loc[:, (df_out != 0).any(axis=0)]
-df_out.to_excel(os.path.join(OUT_PATH, OUT_FILE))
+columns = df_out.columns.str.contains('\\+')
+df_ranges = df_out[df_out.columns[columns]].astype(bool).sum(axis=0)
+df_ranges_rel = df_ranges / df[df_out.columns[columns]].astype(bool).sum(axis=0)
+df_ranges_all = pd.concat([df_ranges, df_ranges_rel], axis =1)
+df_ranges_all = df_ranges_all.rename(columns={0:'Absolute', 1:'Relative'})
+df_ranges_all.sort_values(by='Absolute',ascending=False, inplace = True)
+with pd.ExcelWriter(os.path.join(OUT_PATH, OUT_FILE)) as writer:
+    df_out.to_excel(writer, sheet_name='Outliers')
+    df_ranges_all.to_excel(writer, sheet_name='Ranges')

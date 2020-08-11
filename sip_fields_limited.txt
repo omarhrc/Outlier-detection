@@ -1,3 +1,2 @@
 Request-URI User Part
-SIP from address User Part
 SIP to address User Part
